@@ -1,40 +1,44 @@
-import React, { Component } from "react"
-import axios from "axios"
+import React, { Component } from "react";
+import axios from "axios";
+import classnames from "classnames";
 
 class Register extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       name: "",
       email: "",
       password: "",
       password2: "",
       error: {}
-    }
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
-    }
-    axios.post('./api/user/register', newUser).then(
-      res => {
-        console.log(res.data)
-      }
-    ).catch( err => console.log(err.response.data) )
+    };
+    axios
+      .post("./api/user/register", newUser)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => this.setState({ errors: err.response.data }));
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div className="register">
         <div className="container">
@@ -48,7 +52,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-md"
+                    className={classnames("form-control form-contril-md")}
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
@@ -58,7 +62,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="email"
-                    className="form-control form-control-md"
+                    className={classnames("form-control form-contril-md")}
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
@@ -72,7 +76,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control form-control-md"
+                    className={classnames("form-control form-contril-md")}
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
@@ -82,7 +86,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control form-control-md"
+                    className={classnames('form-control form-contril-md')}
                     placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}
@@ -99,4 +103,4 @@ class Register extends Component {
   }
 }
 
-export default Register
+export default Register;

@@ -7,7 +7,7 @@ const validatePostInput = data => {
   data.text = !isEmpty(data.text) ? data.text : ""
 
   if (!Validator.isLength(data.text, { min: 10, max: 300 })) {
-    errors.text = "Text field is required"
+    errors.text = "Text must be 10-300 words is required"
   }
 
   if (Validator.isEmpty(data.text)) {

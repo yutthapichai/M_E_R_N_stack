@@ -10,8 +10,8 @@ const SelectListGroup = ({
     onChange,
     options
 }) => {
-    const selectOptions = options.map(option => (
-        <option key={option.lebel} value={option.value}>
+    const selectOptions = options.map((option,key) => (
+        <option key={key} value={option.value}>
             {option.label}
         </option>
     ))
@@ -40,8 +40,8 @@ SelectListGroup.propTypes = {
     value: PropTypes.string.isRequired,
     info: PropTypes.string,
     error: PropTypes.string,
-    onChange: PropTypes.string.isRequired,
-    options: PropTypes.string.isRequired
+    onChange: PropTypes.func.isRequired,
+    options: PropTypes.array.isRequired
 }
 
 export default SelectListGroup

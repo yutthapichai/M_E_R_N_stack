@@ -48,7 +48,7 @@ router.get('/user/:user_id', (req, res) => {
 router.get('/handle/:handle', (req, res) => {
   const errors = {}
 
-  Profile.findOne({ user: req.params.handle })
+  Profile.findOne({ handle: req.params.handle })
     .populate('user', ['name', 'avatar'])
     .then(
       profile => {

@@ -3,6 +3,7 @@ const mongooes = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const app = express()
+const path = require('path')
 
 const DB = require('./config/keys').mongoURI
 const users = require('./routes/api/users')
@@ -29,6 +30,16 @@ require('./config/passport')(passport)
 app.use('/api/users', users)
 app.use('/api/profile', profile)
 app.use('/api/posts', posts)
+
+// Server static assets if in production
+if(process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('../front_end/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../front_end', 'build', 'index.html'))
+  })
+}
 
 const port = process.env.Port || 5000
 
